@@ -7,6 +7,7 @@ import com.felipearaujo.data.customer.CustomerRepository
 import com.felipearaujo.model.Customer
 import com.felipearaujo.vanhack.base.BasePresenter
 import com.felipearaujo.vanhack.helper.ErrorTypeEnum
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
@@ -40,14 +41,15 @@ class CreateAccountPresenter constructor(
         }
 
         val customer = Customer(0, email, name, address, getCurrentDate(), password)
+
         requestCreateAcc(customer)
     }
 
     private fun requestCreateAcc(customer: Customer) {
         disposeBag.addAll(
                 dataRepository.createAccount(customer)
-                        .subscribeOn(Schedulers.trampoline())
-                        .observeOn(Schedulers.trampoline())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe {
                             view?.showLoading()
                             view?.hideForm()
