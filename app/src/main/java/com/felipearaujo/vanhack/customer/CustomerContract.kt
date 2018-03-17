@@ -1,6 +1,7 @@
 package com.felipearaujo.vanhack.customer
 
 import com.felipearaujo.vanhack.base.BaseContract
+import com.felipearaujo.vanhack.helper.ErrorType
 
 /**
  * Created by felipearaujo on 17/03/18.
@@ -13,7 +14,7 @@ class CustomerContract {
 
         fun openDashboardScreen()
 
-        fun showError(message: String)
+        fun showError(message: ErrorType)
 
         fun showLoginInputContainer()
 

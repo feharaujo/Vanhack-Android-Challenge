@@ -6,4 +6,12 @@
     <string name="button_sign_in">Sign in</string>
     <string name="button_create_account">CREATE ACCOUNT</string>
 
+    <string name="title_create_acc_screen">Create account</string>
+    <string name="label_fill_in_your_details">Fill in your details</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_name">Name</string>
+    <string name="button_sign_up">Sign up</string>
+    <string name="message_error_empty_form">Please, fill all the form.</string>
+    <string name="error_general">An error has occurred, please try again</string>
+
 </resources>

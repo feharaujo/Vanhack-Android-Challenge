@@ -1,7 +1,9 @@
 package com.felipearaujo.vanhack.customer
 
+import android.content.Context
 import com.felipearaujo.data.customer.CustomerRepository
 import com.felipearaujo.vanhack.BaseTest
+import com.felipearaujo.vanhack.helper.ErrorType
 import io.reactivex.Completable
 import org.junit.After
 import org.junit.Before
@@ -22,9 +24,11 @@ class CustomerPresenterTest: BaseTest() {
     lateinit var view: CustomerContract.View
     @Mock
     lateinit var repository: CustomerRepository
+    @Mock
+    lateinit var context: Context
 
     val presenter: CustomerPresenter by lazy {
-        CustomerPresenter(view, repository)
+        CustomerPresenter(view, repository, context)
     }
 
     @Before
@@ -45,12 +49,12 @@ class CustomerPresenterTest: BaseTest() {
     }
 
     @Test
-    fun doLoginFail() {
+    fun doLoginWithSuccess() {
         Mockito.doReturn(
                 Completable.complete()
         ).`when`(repository).doLogin(anyString(), anyString())
 
-        presenter.doLogin("", "")
+        presenter.doLogin("test@test.com", "12345678")
 
         Mockito.verify(view, Mockito.times(1)).showLoading()
         Mockito.verify(view, Mockito.times(1)).showLoginInputContainer()
@@ -58,16 +62,27 @@ class CustomerPresenterTest: BaseTest() {
     }
 
     @Test
-    fun doLoginWithSuccess() {
+    fun doLoginFail() {
+        Mockito.doReturn(
+                Completable.error(Throwable(Exception()))
+        ).`when`(repository).doLogin(anyString(), anyString())
+
+        presenter.doLogin("test@test.com", "12345678")
+
+        Mockito.verify(view, Mockito.times(1)).showLoading()
+        Mockito.verify(view, Mockito.times(1)).showError(ErrorType.UNKNOWN)
+        Mockito.verify(view, Mockito.times(1)).showLoginInputContainer()
+    }
+
+    @Test
+    fun formValidationnFail() {
         Mockito.doReturn(
                 Completable.error(Throwable(Exception()))
         ).`when`(repository).doLogin(anyString(), anyString())
 
         presenter.doLogin("", "")
 
-        Mockito.verify(view, Mockito.times(1)).showLoading()
-        Mockito.verify(view, Mockito.times(1)).showError(anyString())
-        Mockito.verify(view, Mockito.times(1)).showLoginInputContainer()
+        Mockito.verify(view, Mockito.times(1)).showError(ErrorType.INVALID_FORM)
     }
 
 }

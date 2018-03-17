@@ -2,26 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.felipearaujo.vanhack.customer.CustomerActivity">
-
-
-    <Button
-        android:id="@+id/bt_create_acc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/button_create_account"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0" />
+    android:id="@+id/root_container"
+    tools:context="com.felipearaujo.vanhack.createacc.CreateAccountActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -55,7 +39,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/label_enter_your_email_and_password" />
+            android:text="@string/label_fill_in_your_details" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:hint="@string/hint_name"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/et_email"
@@ -75,14 +68,28 @@
             android:hint="@string/hint_password"
             android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/bt_sign_in"
-            style="@style/defaultButton"
+        <EditText
+            android:id="@+id/et_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/button_sign_in" />
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:hint="@string/hint_address"
+            android:inputType="textPostalAddress" />
 
     </LinearLayout>
+
+    <Button
+        style="@style/defaultButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:text="@string/button_sign_up"
+        android:id="@+id/bt_sign_up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

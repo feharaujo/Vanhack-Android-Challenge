@@ -2,6 +2,7 @@ package com.felipearaujo.data.customer
 
 import com.felipearaujo.data.customer.local.CustomerLocalRepository
 import com.felipearaujo.data.customer.remote.CustomerRemoteRepository
+import com.felipearaujo.model.Customer
 import io.reactivex.Completable
 
 /**
@@ -12,11 +13,13 @@ class CustomerRepositoryImpl(
         val local: CustomerLocalRepository
 ): CustomerRepository {
 
-    override fun createAccount(): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    // TODO : LOCAL CACHE
+
+    override fun createAccount(customer: Customer): Completable {
+       return remote.createAccount(customer)
     }
 
     override fun doLogin(email: String, password: String): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return remote.doLogin(email, password)
     }
 }

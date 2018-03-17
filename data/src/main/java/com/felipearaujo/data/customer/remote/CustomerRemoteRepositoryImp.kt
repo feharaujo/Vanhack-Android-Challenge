@@ -1,6 +1,7 @@
 package com.felipearaujo.data.customer.remote
 
 import com.felipearaujo.data.customer.local.CustomerLocalRepository
+import com.felipearaujo.model.Customer
 import io.reactivex.Completable
 
 /**
@@ -12,36 +13,11 @@ class CustomerRemoteRepositoryImp(
 ) : CustomerRemoteRepository {
 
     override fun doLogin(email: String, password: String): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return service.login()
     }
 
-    override fun createAccount(): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun createAccount(customer: Customer): Completable {
+        return service.createAccount(customer)
     }
 
-
-    /*override fun fetchProjects(): Single<Response> {
-        val cacheResponse = service.fetchAllProject2()
-                .flatMapIterable {
-                    it.projects
-                }
-                .flatMap {
-                    Observable.zip(
-                            Observable.just(it),
-                            service.fetchActivities(it.id!!),
-                            BiFunction<ProjectsItem, ResponseActivity, ProjectsItem> {
-                                first: ProjectsItem, second: ResponseActivity ->
-                                    first.setActivitiesList(second.activity as List<ActivityItem>)
-                            }
-                    )
-                }
-                .toList()
-                .map { Response("ok", it.toList()) }
-                .cache()
-
-        localRepository.saveCacheData(cacheResponse)
-
-        return cacheResponse
-    }
-*/
 }

@@ -2,8 +2,11 @@ package com.felipearaujo.vanhack.customer
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
+import android.content.Context
+import com.felipearaujo.data.common.isValidEmailAddress
 import com.felipearaujo.data.customer.CustomerRepository
 import com.felipearaujo.vanhack.base.BasePresenter
+import com.felipearaujo.vanhack.helper.ErrorType
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,7 +20,8 @@ import io.reactivex.schedulers.Schedulers
 class CustomerPresenter
 constructor(
         override var view: CustomerContract.View?,
-        private val dataRepository: CustomerRepository
+        private val dataRepository: CustomerRepository,
+        private val appContext: Context
 ) : BasePresenter<CustomerContract.View>(), CustomerContract.Presenter {
 
     private val disposeBag: CompositeDisposable = CompositeDisposable()
@@ -37,7 +41,11 @@ constructor(
     }
 
     override fun doLogin(email: String, password: String) {
-        // TODO: Validate fields data
+        if (email.isEmpty() || !email.isValidEmailAddress() || password.isEmpty()) {
+            view?.showError(ErrorType.INVALID_FORM)
+            view?.showLoginInputContainer()
+            return
+        }
 
         view?.showLoading()
 
@@ -49,41 +57,11 @@ constructor(
                             view?.showLoginInputContainer()
                             view?.openDashboardScreen()
                         }, {
-                            view?.showError("")
+                            view?.showError(ErrorType.UNKNOWN)
                             view?.showLoginInputContainer()
                         })
         )
 
     }
-
-    /*override fun fetchProjects(): Disposable {
-        return requestProjectsObservable()
-                .subscribeBy(onSuccess = {
-                    val result = it.projects as List<ProjectsItem>
-                    view?.updateProjectsData(result)
-                }, onError = {
-                    view?.showErrorMessage(GENERIC_ERROR_MSG)
-                })
-
-    }
-
-    private fun requestProjectsObservable(): Single<Response> {
-        return dataRepository.fetchProjects()
-                .doOnSubscribe {
-                    view?.showLoading()
-                    view?.hideRecyclerView()
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doAfterSuccess {
-                    view?.hideLoading()
-                    view?.showRecyclerView()
-                }
-                .doOnError {
-                    view?.hideLoading()
-                    view?.showErrorMessage(GENERIC_ERROR_MSG)
-                }
-    }*/
-
 
 }
