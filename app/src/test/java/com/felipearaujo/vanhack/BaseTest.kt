@@ -20,13 +20,13 @@ abstract class BaseTest {
         MockitoAnnotations.initMocks(this)
 
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline(); }
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
     }
 
     @After
     open fun after() {
-        RxAndroidPlugins.reset();
-        RxJavaPlugins.reset();
+        RxAndroidPlugins.reset()
+        RxJavaPlugins.reset()
     }
 
 }

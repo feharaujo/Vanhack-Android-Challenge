@@ -1,6 +1,5 @@
 package com.felipearaujo.vanhack.customer.dagger
 
-import android.content.Context
 import com.felipearaujo.data.customer.CustomerRepository
 import com.felipearaujo.vanhack.customer.CustomerActivity
 import com.felipearaujo.vanhack.customer.CustomerContract
@@ -21,8 +20,7 @@ class CustomerModule {
     @Provides
     fun providesPresenter(
             view: CustomerContract.View,
-            dataRepository: CustomerRepository,
-            context: Context
-    ): CustomerContract.Presenter = CustomerPresenter(view, dataRepository, context)
+            dataRepository: CustomerRepository
+    ): CustomerContract.Presenter = CustomerPresenter(view, dataRepository)
 
 }

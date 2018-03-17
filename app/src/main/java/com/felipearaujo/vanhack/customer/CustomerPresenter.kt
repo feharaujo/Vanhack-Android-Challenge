@@ -2,11 +2,10 @@ package com.felipearaujo.vanhack.customer
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import android.content.Context
 import com.felipearaujo.data.common.isValidEmailAddress
 import com.felipearaujo.data.customer.CustomerRepository
 import com.felipearaujo.vanhack.base.BasePresenter
-import com.felipearaujo.vanhack.helper.ErrorType
+import com.felipearaujo.vanhack.helper.ErrorTypeEnum
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -20,8 +19,7 @@ import io.reactivex.schedulers.Schedulers
 class CustomerPresenter
 constructor(
         override var view: CustomerContract.View?,
-        private val dataRepository: CustomerRepository,
-        private val appContext: Context
+        private val dataRepository: CustomerRepository
 ) : BasePresenter<CustomerContract.View>(), CustomerContract.Presenter {
 
     private val disposeBag: CompositeDisposable = CompositeDisposable()
@@ -31,7 +29,7 @@ constructor(
 
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
         disposeBag.clear()
     }
@@ -42,23 +40,26 @@ constructor(
 
     override fun doLogin(email: String, password: String) {
         if (email.isEmpty() || !email.isValidEmailAddress() || password.isEmpty()) {
-            view?.showError(ErrorType.INVALID_FORM)
-            view?.showLoginInputContainer()
+            view?.showError(ErrorTypeEnum.INVALID_FORM)
             return
         }
 
-        view?.showLoading()
-
         disposeBag.addAll(
                 dataRepository.doLogin(email, password)
-                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
-                        .subscribe({
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe {
+                            view?.showLoading()
+                            view?.hideLoginInputContainer()
+                        }
+                        .doFinally {
+                            view?.hideLoading()
                             view?.showLoginInputContainer()
+                        }
+                        .subscribe({
                             view?.openDashboardScreen()
                         }, {
-                            view?.showError(ErrorType.UNKNOWN)
-                            view?.showLoginInputContainer()
+                            view?.showError(ErrorTypeEnum.UNKNOWN)
                         })
         )
 

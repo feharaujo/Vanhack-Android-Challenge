@@ -1,6 +1,5 @@
 package com.felipearaujo.vanhack.createacc.dagger
 
-import android.content.Context
 import com.felipearaujo.data.customer.CustomerRepository
 import com.felipearaujo.vanhack.createacc.CreateAccountActivity
 import com.felipearaujo.vanhack.createacc.CreateAccountContract
@@ -20,8 +19,7 @@ class CreateAccountModule {
     @Provides
     fun providesPresenter(
             view: CreateAccountContract.View,
-            dataRepository: CustomerRepository,
-            context: Context
-    ): CreateAccountContract.Presenter = CreateAccountPresenter(view, dataRepository, context)
+            dataRepository: CustomerRepository
+    ): CreateAccountContract.Presenter = CreateAccountPresenter(view, dataRepository)
 
 }

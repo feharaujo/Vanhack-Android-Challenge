@@ -1,9 +1,8 @@
 package com.felipearaujo.vanhack.customer
 
-import android.content.Context
 import com.felipearaujo.data.customer.CustomerRepository
 import com.felipearaujo.vanhack.BaseTest
-import com.felipearaujo.vanhack.helper.ErrorType
+import com.felipearaujo.vanhack.helper.ErrorTypeEnum
 import io.reactivex.Completable
 import org.junit.After
 import org.junit.Before
@@ -24,11 +23,9 @@ class CustomerPresenterTest: BaseTest() {
     lateinit var view: CustomerContract.View
     @Mock
     lateinit var repository: CustomerRepository
-    @Mock
-    lateinit var context: Context
 
-    val presenter: CustomerPresenter by lazy {
-        CustomerPresenter(view, repository, context)
+    private val presenter: CustomerPresenter by lazy {
+        CustomerPresenter(view, repository)
     }
 
     @Before
@@ -57,7 +54,11 @@ class CustomerPresenterTest: BaseTest() {
         presenter.doLogin("test@test.com", "12345678")
 
         Mockito.verify(view, Mockito.times(1)).showLoading()
+        Mockito.verify(view, Mockito.times(1)).hideLoading()
+
         Mockito.verify(view, Mockito.times(1)).showLoginInputContainer()
+        Mockito.verify(view, Mockito.times(1)).hideLoginInputContainer()
+
         Mockito.verify(view, Mockito.times(1)).openDashboardScreen()
     }
 
@@ -70,19 +71,24 @@ class CustomerPresenterTest: BaseTest() {
         presenter.doLogin("test@test.com", "12345678")
 
         Mockito.verify(view, Mockito.times(1)).showLoading()
-        Mockito.verify(view, Mockito.times(1)).showError(ErrorType.UNKNOWN)
+        Mockito.verify(view, Mockito.times(1)).hideLoading()
+
         Mockito.verify(view, Mockito.times(1)).showLoginInputContainer()
+        Mockito.verify(view, Mockito.times(1)).hideLoginInputContainer()
+
+        Mockito.verify(view, Mockito.times(1)).showError(ErrorTypeEnum.UNKNOWN)
+
     }
 
     @Test
-    fun formValidationnFail() {
+    fun formValidationFail() {
         Mockito.doReturn(
                 Completable.error(Throwable(Exception()))
         ).`when`(repository).doLogin(anyString(), anyString())
 
         presenter.doLogin("", "")
 
-        Mockito.verify(view, Mockito.times(1)).showError(ErrorType.INVALID_FORM)
+        Mockito.verify(view, Mockito.times(1)).showError(ErrorTypeEnum.INVALID_FORM)
     }
 
 }

@@ -6,7 +6,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.felipearaujo.vanhack.R
-import com.felipearaujo.vanhack.helper.ErrorType
+import com.felipearaujo.vanhack.helper.ErrorTypeEnum
+import com.felipearaujo.vanhack.helper.EventTypeEnum
 import dagger.android.AndroidInjection
 
 /**
@@ -46,11 +47,16 @@ abstract class BaseActivity<V : BaseContract.View, P : BaseContract.Presenter<V>
 
     abstract fun initPresenter(): P
 
-    fun getErrorMessage(errorType: ErrorType): String {
-        return when(errorType) {
-                    ErrorType.INVALID_FORM -> getString(R.string.message_error_empty_form)
-                    ErrorType.UNKNOWN -> getString(R.string.error_general)
+    fun getErrorMessage(errorTypeEnum: ErrorTypeEnum): String {
+        return when(errorTypeEnum) {
+                    ErrorTypeEnum.INVALID_FORM -> getString(R.string.message_error_empty_form)
+                    ErrorTypeEnum.UNKNOWN -> getString(R.string.error_general)
                 }
     }
 
+    fun getGeneralMessage(typeEnum: EventTypeEnum): String {
+        return when(typeEnum) {
+            EventTypeEnum.ACCOUNT_CREATED_SUCCESS -> getString(R.string.message_account_created_success)
+        }
+    }
 }

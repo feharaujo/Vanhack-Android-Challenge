@@ -1,7 +1,7 @@
 package com.felipearaujo.vanhack.createacc
 
 import com.felipearaujo.vanhack.base.BaseContract
-import com.felipearaujo.vanhack.helper.ErrorType
+import com.felipearaujo.vanhack.helper.ErrorTypeEnum
 
 /**
  * Created by felipearaujo on 17/03/18.
@@ -12,7 +12,15 @@ class CreateAccountContract {
 
         fun accountCreatedWithSuccess()
 
-        fun accountCreationFailed(message: ErrorType)
+        fun showAccountCreationFailedMessage(errorTypeEnum: ErrorTypeEnum)
+
+        fun showLoading()
+
+        fun hideLoading()
+
+        fun showForm()
+
+        fun hideForm()
 
     }
 

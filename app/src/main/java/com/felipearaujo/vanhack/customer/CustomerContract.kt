@@ -1,7 +1,7 @@
 package com.felipearaujo.vanhack.customer
 
 import com.felipearaujo.vanhack.base.BaseContract
-import com.felipearaujo.vanhack.helper.ErrorType
+import com.felipearaujo.vanhack.helper.ErrorTypeEnum
 
 /**
  * Created by felipearaujo on 17/03/18.
@@ -14,11 +14,15 @@ class CustomerContract {
 
         fun openDashboardScreen()
 
-        fun showError(message: ErrorType)
+        fun showError(errorTypeEnum: ErrorTypeEnum)
 
         fun showLoginInputContainer()
 
         fun showLoading()
+
+        fun hideLoginInputContainer()
+
+        fun hideLoading()
 
     }
 

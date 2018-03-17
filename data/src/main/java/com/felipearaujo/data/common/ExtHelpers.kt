@@ -11,5 +11,3 @@ fun String.isValidEmailAddress(): Boolean {
     val m = p.matcher(email)
     return m.matches()
 }
-
-

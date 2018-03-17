@@ -13,5 +13,6 @@
     <string name="button_sign_up">Sign up</string>
     <string name="message_error_empty_form">Please, fill all the form.</string>
     <string name="error_general">An error has occurred, please try again</string>
+    <string name="message_account_created_success">Account created with success.</string>
 
 </resources>
