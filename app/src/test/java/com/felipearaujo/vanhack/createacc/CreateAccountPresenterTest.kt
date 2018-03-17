@@ -47,6 +47,7 @@ class CreateAccountPresenterTest : BaseTest() {
                 .showAccountCreationFailedMessage(ErrorTypeEnum.INVALID_FORM)
     }
 
+    // TODO : CHECK THIS TEST
     @Ignore
     fun onAccountCreationFail() {
         val email = "test@test.com"
