@@ -53,6 +53,8 @@ class CustomerPresenterTest: BaseTest() {
 
         presenter.doLogin("test@test.com", "12345678")
 
+        Mockito.verify(view, Mockito.times(1)).closeKeyboard()
+
         Mockito.verify(view, Mockito.times(1)).showLoading()
         Mockito.verify(view, Mockito.times(1)).hideLoading()
 
@@ -69,6 +71,8 @@ class CustomerPresenterTest: BaseTest() {
         ).`when`(repository).doLogin(anyString(), anyString())
 
         presenter.doLogin("test@test.com", "12345678")
+
+        Mockito.verify(view, Mockito.times(1)).closeKeyboard()
 
         Mockito.verify(view, Mockito.times(1)).showLoading()
         Mockito.verify(view, Mockito.times(1)).hideLoading()
@@ -88,6 +92,7 @@ class CustomerPresenterTest: BaseTest() {
 
         presenter.doLogin("", "")
 
+        Mockito.verify(view, Mockito.times(1)).closeKeyboard()
         Mockito.verify(view, Mockito.times(1)).showError(ErrorTypeEnum.INVALID_FORM)
     }
 

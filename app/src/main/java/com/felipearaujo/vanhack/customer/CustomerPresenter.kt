@@ -2,8 +2,8 @@ package com.felipearaujo.vanhack.customer
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import com.felipearaujo.data.helper.isValidEmailAddress
 import com.felipearaujo.data.customer.CustomerRepository
+import com.felipearaujo.data.helper.isValidEmailAddress
 import com.felipearaujo.vanhack.base.BasePresenter
 import com.felipearaujo.vanhack.helper.ErrorTypeEnum
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,6 +39,8 @@ constructor(
     }
 
     override fun doLogin(email: String, password: String) {
+        view?.closeKeyboard()
+
         if (email.isEmpty() || !email.isValidEmailAddress() || password.isEmpty()) {
             view?.showError(ErrorTypeEnum.INVALID_FORM)
             return
