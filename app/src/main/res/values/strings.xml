@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Vanhack</string>
+    <string name="label_enter_your_email_and_password">Enter your email and password</string>
+    <string name="hint_e_mail">E-mail</string>
+    <string name="hint_password">Password</string>
+    <string name="button_sign_in">Sign in</string>
+    <string name="button_create_account">CREATE ACCOUNT</string>
+
+</resources>

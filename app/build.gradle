@@ -1,0 +1,98 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    buildToolsVersion '27.0.3'
+    compileSdkVersion 27
+
+    defaultConfig {
+        applicationId "com.felipearaujo.vanhack"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    api "com.android.support:multidex:$multidex_version"
+
+    // Data layer
+    api project(':data')
+
+    // Model layer
+    api project(':model')
+
+    // Data binding
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation "com.android.support:support-v4:$support_lib_version"
+    implementation "com.android.support:design:$support_lib_version"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.anko:anko:$anko_version"
+
+    // Dagger
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+
+    // RxKotlin
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rxbinding_version"
+
+    // Support library
+    implementation("com.android.support:recyclerview-v7:$support_lib_version", {
+        exclude group: 'com.android.support', module: 'animated-vector'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+    })
+    implementation("com.android.support:appcompat-v7:$support_lib_version", {
+        exclude group: 'com.android.support', module: 'animated-vector'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+    })
+    implementation("com.android.support:cardview-v7:$support_lib_version", {
+        exclude group: 'com.android.support', module: 'animated-vector'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+    })
+    implementation "org.jetbrains.anko:anko-recyclerview-v7:$anko_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+
+    // Architecture Components
+    kapt "android.arch.lifecycle:compiler:$architecture_components_version"
+    implementation "android.arch.lifecycle:extensions:$architecture_components_extension_version"
+
+    // Networking
+    implementation "com.squareup.picasso:picasso:$picasso_version"
+
+    // Tests
+    testImplementation("android.arch.core:core-testing:$architecture_components_core_testing_version", {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
+    testImplementation "junit:junit:$test_junit_version"
+    testImplementation "org.mockito:mockito-core:$test_mockito_version"
+    testImplementation 'org.powermock:powermock-api-easymock:1.7.4'
+    androidTestImplementation "com.android.support.test:runner:$test_runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$test_espresso_core_version"
+}

@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    buildToolsVersion '27.0.3'
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        buildTypes.each {
+            it.buildConfigField 'String', 'PROJECT_BASE_URL', project_base_url
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    // Model layer
+    api project(':model')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.anko:anko:$anko_version"
+
+    // Architecture Components
+    kapt "android.arch.lifecycle:compiler:$architecture_components_version"
+    implementation "android.arch.lifecycle:extensions:$architecture_components_extension_version"
+
+    // Dagger
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+
+    // RxKotlin
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+
+    // Support library
+    implementation("com.android.support:appcompat-v7:$support_lib_version", {
+        exclude group: 'com.android.support', module: 'animated-vector'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+    })
+
+    // Networking
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.picasso:picasso:$picasso_version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    api "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
+    api "com.squareup.retrofit2:converter-jackson:$retrofit_version"
+
+    // Tests
+    testImplementation "junit:junit:$test_junit_version"
+    androidTestImplementation "com.android.support.test:runner:$test_runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$test_espresso_core_version"
+}
