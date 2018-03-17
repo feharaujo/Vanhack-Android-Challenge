@@ -8,11 +8,11 @@ import android.view.View
 import com.felipearaujo.vanhack.R
 import com.felipearaujo.vanhack.base.BaseActivity
 import com.felipearaujo.vanhack.helper.ErrorTypeEnum
+import com.felipearaujo.vanhack.helper.closeKeyboard
 import kotlinx.android.synthetic.main.activity_create_account.*
 import javax.inject.Inject
 
 class CreateAccountActivity : BaseActivity<CreateAccountContract.View, CreateAccountContract.Presenter>(), CreateAccountContract.View {
-
 
     @Inject
     override lateinit var presenter: CreateAccountContract.Presenter
@@ -75,5 +75,9 @@ class CreateAccountActivity : BaseActivity<CreateAccountContract.View, CreateAcc
 
     override fun hideForm() {
         form_container.visibility = View.INVISIBLE
+    }
+
+    override fun closeKeyboard() {
+        root_container.closeKeyboard()
     }
 }

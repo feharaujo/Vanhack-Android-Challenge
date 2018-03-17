@@ -9,13 +9,16 @@ import com.felipearaujo.data.CODE_CREATE_ACC
 import com.felipearaujo.vanhack.R
 import com.felipearaujo.vanhack.base.BaseActivity
 import com.felipearaujo.vanhack.createacc.CreateAccountActivity
+import com.felipearaujo.vanhack.dashboard.DashboardActivity
 import com.felipearaujo.vanhack.helper.ErrorTypeEnum
 import com.felipearaujo.vanhack.helper.EventTypeEnum
+import com.felipearaujo.vanhack.helper.closeKeyboard
 import kotlinx.android.synthetic.main.activity_customer.*
 import org.jetbrains.anko.intentFor
 import javax.inject.Inject
 
 class CustomerActivity : BaseActivity<CustomerContract.View, CustomerContract.Presenter>(), CustomerContract.View {
+
 
     @Inject
     override lateinit var presenter: CustomerContract.Presenter
@@ -52,7 +55,8 @@ class CustomerActivity : BaseActivity<CustomerContract.View, CustomerContract.Pr
     }
 
     override fun openDashboardScreen() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        startActivity(intentFor<DashboardActivity>())
+        finish()
     }
 
     override fun showError(errorTypeEnum: ErrorTypeEnum) {
@@ -76,4 +80,7 @@ class CustomerActivity : BaseActivity<CustomerContract.View, CustomerContract.Pr
         progress_bar.visibility = View.GONE
     }
 
+    override fun closeKeyboard() {
+        root_container.closeKeyboard()
+    }
 }

@@ -2,8 +2,8 @@ package com.felipearaujo.vanhack.createacc
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import com.felipearaujo.data.common.isValidEmailAddress
 import com.felipearaujo.data.customer.CustomerRepository
+import com.felipearaujo.data.helper.isValidEmailAddress
 import com.felipearaujo.model.Customer
 import com.felipearaujo.vanhack.base.BasePresenter
 import com.felipearaujo.vanhack.helper.ErrorTypeEnum
@@ -34,6 +34,8 @@ class CreateAccountPresenter constructor(
     }
 
     override fun submitAccountData(name: String, email: String, address: String, password: String) {
+        view?.closeKeyboard()
+
         if (name.isEmpty() || email.isEmpty() || !email.isValidEmailAddress()
                 || address.isEmpty() || password.isEmpty()) {
             view?.showAccountCreationFailedMessage(ErrorTypeEnum.INVALID_FORM)

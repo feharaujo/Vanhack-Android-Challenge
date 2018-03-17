@@ -2,7 +2,7 @@ package com.felipearaujo.vanhack.customer
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
-import com.felipearaujo.data.common.isValidEmailAddress
+import com.felipearaujo.data.helper.isValidEmailAddress
 import com.felipearaujo.data.customer.CustomerRepository
 import com.felipearaujo.vanhack.base.BasePresenter
 import com.felipearaujo.vanhack.helper.ErrorTypeEnum

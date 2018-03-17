@@ -59,4 +59,5 @@ abstract class BaseActivity<V : BaseContract.View, P : BaseContract.Presenter<V>
             EventTypeEnum.ACCOUNT_CREATED_SUCCESS -> getString(R.string.message_account_created_success)
         }
     }
+
 }

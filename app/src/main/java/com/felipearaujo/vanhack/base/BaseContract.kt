@@ -10,9 +10,11 @@ interface BaseContract {
 
     interface View {
 
+        fun closeKeyboard()
+
     }
 
-    interface Presenter<V: BaseContract.View> {
+    interface Presenter<V : BaseContract.View> {
 
         var view: V?
 

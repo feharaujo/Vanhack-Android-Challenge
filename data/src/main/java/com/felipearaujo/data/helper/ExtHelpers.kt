@@ -1,4 +1,4 @@
-package com.felipearaujo.data.common
+package com.felipearaujo.data.helper
 
 /**
  * Created by felipearaujo on 17/03/18.
