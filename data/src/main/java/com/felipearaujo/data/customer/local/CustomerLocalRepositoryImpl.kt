@@ -13,6 +13,8 @@ import io.reactivex.Completable
  */
 class CustomerLocalRepositoryImpl(private val preferences: SharedPreferences) : CustomerLocalRepository {
 
+    // TODO : Implement local cache
+
     override fun doLogin(email: String, password: String): Completable {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

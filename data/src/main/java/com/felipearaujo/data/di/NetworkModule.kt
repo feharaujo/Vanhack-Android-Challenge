@@ -12,6 +12,11 @@ import com.felipearaujo.data.customer.local.CustomerLocalRepositoryImpl
 import com.felipearaujo.data.customer.remote.CustomerRemoteRepository
 import com.felipearaujo.data.customer.remote.CustomerRemoteRepositoryImp
 import com.felipearaujo.data.customer.remote.CustomerService
+import com.felipearaujo.data.store.StoreRepository
+import com.felipearaujo.data.store.StoreRepositoryImpl
+import com.felipearaujo.data.store.remote.StoreRemoteRepository
+import com.felipearaujo.data.store.remote.StoreRemoteRepositoryImpl
+import com.felipearaujo.data.store.remote.StoreService
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
@@ -104,5 +109,17 @@ class NetworkModule {
         return appContext.getSharedPreferences("DEFAULT_PREFERENCES", Context.MODE_PRIVATE)
     }
 
+    @Provides
+    @Singleton
+    fun providesStoreRemoteRepository(storeService: StoreService): StoreRemoteRepository = StoreRemoteRepositoryImpl(storeService)
+
+    @Provides
+    @Singleton
+    fun providesStoreRepository(storeRemoteRepository: StoreRemoteRepository): StoreRepository =
+            StoreRepositoryImpl(storeRemoteRepository)
+
+    @Provides
+    @Singleton
+    fun providesStoreService(retrofit: Retrofit): StoreService = retrofit.create(StoreService::class.java)
 
 }
